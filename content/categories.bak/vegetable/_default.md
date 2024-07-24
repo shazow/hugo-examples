@@ -1,4 +1,0 @@
-+++
-title = 'Vegetable'
-menus = 'food'
-+++
