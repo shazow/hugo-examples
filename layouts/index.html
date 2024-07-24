@@ -1,1 +1,65 @@
 <h1>Index Page</h1>
+
+<!--
+https://gohugo.io/methods/site/taxonomies/#examples
+-->
+<nav>
+    <h2>Nav Example: Loop over categories</h2>
+    <ul>
+        {{ range .Site.Taxonomies.categories }}
+        <li>
+            <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
+        </li>
+        {{ end }}
+    </ul>
+</nav>
+
+<nav>
+    <h2>Nav Example: Subcategories (using tags as subcategories)</h2>
+    <ul>
+        {{ range .Site.Taxonomies.categories }}
+        <li>
+            <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
+
+            <ul>
+            {{ $tags := slice }}
+            {{ range .Pages }}
+                {{ $tags = $tags | append .Params.tags }}
+            {{ end }}
+            {{ $tags = $tags | uniq | sort }}
+            {{ range $tags }}
+                {{ with index site.Taxonomies.tags . }}
+                <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>
+                {{ end }}
+            {{ end }}
+            </ul>
+        </li>
+        {{ end }}
+    </ul>
+</nav>
+
+<!--
+https://gohugo.io/content-management/taxonomies/#add-custom-metadata-to-a-taxonomy-or-term
+-->
+<nav>
+    <h2>Nav Example: Loop over menu</h2>
+    <ul>
+        {{ range site.Menus.food }}
+        <li>
+            <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+
+            <!-- TODO: Finish this version, got distracted -->
+        </li>
+        {{ end }}
+    </ul>
+</nav>
+
+
+<!--
+This is useful: {{ debug.Dump . }}
+-->
+
+<h2>Scratch</h2>
+<pre style="background: #eee;">
+    {{ debug.Dump site.Menus.food }}
+</pre>

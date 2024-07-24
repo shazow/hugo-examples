@@ -1,1 +1,2 @@
-*.lockt
+\.*.lock
+/public
